@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="relative w-full h-screen">
       <Image
-        src={`${prefix}/bg.png`}
+        src={`/bg.png`}
         alt="Background"
         layout="fill"
         objectFit="cover"
