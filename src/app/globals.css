@@ -31,3 +31,21 @@ body {
     text-wrap: balance;
   }
 }
+
+.bg-pastel-blue {
+  background-color: #a1c4fd; /* 파스텔 톤의 예시 색상 */
+}
+
+/* styles.css */
+.retry-message {
+  animation: fadeOut 3s;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
