@@ -2,10 +2,15 @@ import Image from "next/image";
 import { Timer } from "./timer/Timer";
 
 export default function Home() {
+  const prefix =
+    process.env.NODE_ENV === "production"
+      ? "https://wonyoung2257.github.io/do_nothing_for_2_minutes"
+      : "";
+
   return (
     <div className="relative w-full h-screen">
       <Image
-        src="/bg.png"
+        src={`${prefix}/bg.png`}
         alt="Background"
         layout="fill"
         objectFit="cover"
