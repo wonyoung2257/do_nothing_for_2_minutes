@@ -1,20 +1,20 @@
-import Image from "next/image";
 import { Timer } from "./timer/Timer";
 
 export default function Home() {
-  const prefix =
-    process.env.NODE_ENV === "production"
-      ? "https://wonyoung2257.github.io/do_nothing_for_2_minutes"
-      : "";
+  // const prefix =
+  //   process.env.NODE_ENV === "production"
+  //     ? "https://wonyoung2257.github.io/do_nothing_for_2_minutes"
+  //     : "";
 
   return (
     <div className="relative w-full h-screen">
-      <Image
+      <img
         src={`/bg.png`}
-        alt="Background"
-        layout="fill"
-        objectFit="cover"
-        quality={100}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+        }}
       />
 
       <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 select-none">
