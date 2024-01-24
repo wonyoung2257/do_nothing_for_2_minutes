@@ -5,11 +5,10 @@
   "homepage": "https://wonyoung2257.github.io/do_nothing_for_2_minutes/",
   "scripts": {
     "dev": "next dev",
+    "build": "next build ",
     "start": "next start",
     "lint": "next lint",
-    "build": "next build",
-    "predeploy": "npm run build",
-    "deploy": "touch out/.nojekyll && gh-pages -d out --dotfiles"
+    "deploy": "next build  && touch out/.nojekyll && git add -f out/ && git commit -m 'deploy to gh-pages' && git subtree push --prefix out origin gh-pages"
   },
   "dependencies": {
     "next": "14.1.0",
