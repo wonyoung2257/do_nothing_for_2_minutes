@@ -2,6 +2,18 @@
 
 import { useEffect, useState } from "react";
 
+function convertToHoursMinutes(inputNumber: number) {
+  // 입력받은 숫자에 2를 곱함
+  const totalMinutes = inputNumber * 2;
+
+  // 시간과 분 계산
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  // "HH:MM" 형식으로 시간 포맷
+  return `${hours}시 ${minutes.toString().padStart(2, "0")}분`;
+}
+
 function Modal() {
   const [isSharing, setIsSharing] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -54,6 +66,17 @@ function Modal() {
             2분간의 휴식을 즐기셨나요?
             <br />이 짧은 시간이 우리에게 지친 일상에서 위로가 되길 바랍니다.
           </p>
+
+          <p className="mt-4 text-lg text-gray-700">
+            내가 비운 시간은{" "}
+            <span className="font-bold text-green-500">
+              {convertToHoursMinutes(
+                Number(localStorage.getItem("successCount"))
+              )}
+            </span>{" "}
+            입니다
+          </p>
+
           <button
             className={`mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ${
               isSharing || isCopied ? "hidden" : ""
@@ -75,9 +98,14 @@ function Modal() {
 }
 
 export function Timer() {
-  const initialTime = 120; // 2분을 초단위로 계산
+  const initialTime = 1; // 2분을 초단위로 계산
   const [time, setTime] = useState(initialTime);
   const [showModal, setShowModal] = useState(false);
+
+  const handleSuccess = () => {
+    const successCount = Number(localStorage.getItem("successCount"));
+    localStorage.setItem("successCount", (successCount + 1).toString());
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -86,6 +114,7 @@ export function Timer() {
       } else {
         clearInterval(timer);
         setShowModal(true); // 타이머가 0이 되면 모달 표시
+        handleSuccess();
       }
     }, 1000);
 
@@ -114,11 +143,13 @@ export function Timer() {
   const seconds = time % 60;
 
   return (
-    <div className="text-center">
-      <div className="p-4 text-cyan-400 font-bold rounded-lg text-3xl">
-        {minutes}:{seconds.toString().padStart(2, "0")}
+    <>
+      <div className="text-center">
+        <div className="p-4 text-cyan-400 font-bold rounded-lg text-3xl">
+          {minutes}:{seconds.toString().padStart(2, "0")}
+        </div>
+        {showModal && <Modal />}
       </div>
-      {showModal && <Modal />}
-    </div>
+    </>
   );
 }
